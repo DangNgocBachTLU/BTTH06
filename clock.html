@@ -30,7 +30,7 @@
 
         .clock {
             width: 30%;
-            background-color: red;
+            background-color: black;
             height: 100%;
             line-height: 60px;
             text-align: center;
@@ -41,21 +41,36 @@
             height: 100%;
             line-height: 60px;
             text-align: center;
-            background-color: #999;
+            background-color: white;
         }
     </style>
 </head>
 
 <body>
-
+    
     <div class="app">
-        <div class="clock"></div>
+        <div class="clock">
+            <img src="" alt="" id="h1">
+            <img src="" alt="" id="h2">
+            <img src="img/haicham.gif" alt="" id="haicham">
+            <img src="" alt="" id="m1">
+            <img src="" alt="" id="m2">
+            <img src="img/haicham.gif" alt="" id="haicham">
+            <img src="" alt="" id="s1">
+            <img src="" alt="" id="s2">
+        </div>
         <div class="title" style="color: red;"></div>
     </div>
 
 
     <script>
         const title = document.querySelector('.title')
+        let H1 = document.getElementById('h1')
+        let H2 = document.getElementById('h2')
+        let M1 = document.getElementById('m1')
+        let M2 = document.getElementById('m2')
+        let S1 = document.getElementById('s1')
+        let S2 = document.getElementById('s2')
 
         setInterval(() => {
             const date = new Date()
@@ -63,13 +78,34 @@
             let minutes = date.getMinutes()
             let seconds = date.getSeconds()
 
+            hours = (hours<10) ? "0" + hours : hours
+            minutes = (minutes<10) ? "0" + minutes : minutes
+            seconds = (seconds<10) ? "0" + seconds : seconds
+
+            function Srct(a){
+                let n = 'img/0'
+                return n += (a-a%10)/10 + '.gif'
+            }
+            function Srco(a){
+                let n = 'img/0'
+                return n += a%10 + '.gif'
+            }
+
+            
+            H1.src = Srct(hours)
+            H2.src = Srco(hours)
+            M1.src = Srct(minutes)
+            M2.src = Srco(minutes)
+            S1.src = Srct(seconds)
+            S2.src = Srco(seconds)
+
             title.style.color = title.style.color === 'red' ? '#000' : 'red'
 
             if (hours >= 0 && hours < 12) {
                 title.innerText = 'Chào buổi sáng'
                 title.style.fontSize = '16px'
             }
-            if (hours > 12 && hours < 17) {
+            else if (hours > 12 && hours < 17) {
                 title.innerText = 'Chào buổi chiều'
                 title.style.fontSize = '20px'
             } else {
@@ -77,7 +113,7 @@
                 title.style.fontSize = '24px'
             }
 
-            document.querySelector('.clock').innerText = `${hours} : ${minutes} : ${seconds}`
+            //document.querySelector('.clock').innerText = `${hours} : ${minutes} : ${seconds}`
         }, 1000)
     </script>
 </body>
